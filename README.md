@@ -3,44 +3,30 @@
 **NutriScan** is a high-precision, multi-stage AI platform designed to bridge the gap between computer vision and dietary health. It utilizes a custom-trained **YOLO26n** model to identify 115+ food ingredients and integrates with **Google Gemini 2.0 Flash** to provide real-time, recipe generation and nutritional gap analysis.
 
 ---
-
 ## 🚀 Key Features
 
 * **Precision Computer Vision:** Custom-trained YOLO26n model optimized on a "Mega-Merge" dataset of **17,647 images**, achieving a **94.1% mAP**.
 * **Dual-Stage Intelligence:** Seamlessly connects real-time object detection with LLM-based semantic reasoning for expert-level culinary advice.
-* **Health-First Logic:** Hardcoded constraints for **100% Sugar-Free** meal planning and calorie-deficit calculations.
+* **Health-First Adaptive Logic:** A modular intelligence layer that filters recipes based on **dynamic user constraints** (e.g., Diabetic-friendly, Keto, High-Protein, or Vegan).
 * **Contextual Robustness:** Specifically tuned to handle the shadows, low lighting, and cluttered environments of home kitchens.
-* **Smart Gap Analysis:** Identifies what you have and exactly what you are missing for a target healthy dish.
+* **Smart Gap Analysis:** Performs a real-time comparison between available pantry items and target nutritional goals to suggest the most efficient meal.
 
 ---
 
-## 🛠️ Tech Stack
+## 🥗 Personalized Health Logic
 
-| Component | Technology |
-| :--- | :--- |
-| **Deep Learning** | YOLO26-Nano (Ultralytics), PyTorch |
-| **Generative AI** | Google Gemini 2.0 Flash API |
-| **Backend** | FastAPI, Python 3.12, Uvicorn |
-| **Data Management** | Roboflow, YAML, PIL |
-| **Frontend** | React.js, Vite, Tailwind CSS |
-| **Development** | VS Code, Google Colab (Tesla T4 GPU) |
+NutriScan is built on a **Constraint-Aware AI Architecture**. Instead of providing generic recipes, the system processes ingredients through a specific health filter:
+
+1. **Dietary Guardrails:** The backend cross-references detected items against a user's health profile 
+2. **Calorie-Precision Intelligence:** Every generated meal plan is optimized for the user's specific caloric target, whether for maintenance, deficit, or surplus.
+3. **Macro-Balancing:** Gemini 2.0 Flash automatically adjusts the portion suggestions for detected items to hit specific Protein/Carb/Fat ratios.
 
 ---
 
-## 📂 Project Architecture
 
-NUTRISCAN/
-├── backend/
-│   ├── app/
-│   │   ├── services/
-│   │   │   ├── vision.py       # YOLOv8/26 Inference Logic
-│   │   │   └── nutrition.py    # Gemini LLM Integration
-│   │   └── main.py             # FastAPI REST Endpoints
-│   ├── weights/
-│   │   └── best.pt             # Trained Weights (94.1% mAP)
-│   ├── data.yaml               # Ingredient Manifest (115 Classes)
-│   └── .env                    # API Secrets
-└── frontend/                   # React/Vite Dashboard
+## 🎯 Project Inspiration & Case Study
+
+While NutriScan is a general-purpose health tool, its development was inspired by a successful real-world "healthy eating" journey. This case study proved the system's ability to maintain strict adherence to dietary goals by turning the smartphone camera into a digital nutritionist, ensuring every meal remains honest, tracked, and aligned with long-term fitness targets.
 
 
 📊 Model Performance
