@@ -1,61 +1,55 @@
-import io
+import uvicorn
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.services.vision import VisionService
 from app.services.nutrition import NutritionService
 
-# 1. Initialize the FastAPI app
-app = FastAPI(title="NutriScan AI Backend", version="2.0")
+app = FastAPI(title="NutriScan AI", version="3.0")
 
-# 2. Enable CORS (Crucial for connecting to your React/Streamlit frontend later)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, replace with your frontend URL
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# 3. Load our AI Services
-# Make sure your 'best.pt' is in the backend/weights/ folder!
-vision = VisionService(model_path="weights/best.pt")
+
+vision = VisionService(model_path="weights/best.pt", yaml_path="data.yaml")
 nutrition = NutritionService()
 
 @app.get("/")
 async def health_check():
-    return {
-        "status": "online",
-        "model_loaded": "YOLOv8-NutriScan-v1",
-        "api_ready": True
-    }
+    return {"status": "online", "system": "NutriScan Hybrid AI"}
 
 @app.post("/scan")
 async def scan_and_analyze(
     file: UploadFile = File(...), 
-    user_goal: str = Form(...) 
+    user_goal: str = Form("Provide a balanced healthy recipe")
 ):
     try:
-        # 1. Read the image as raw BINARY (don't decode!)
         image_bytes = await file.read()
         
-        # 2. Pass those BYTES to Vision
-        # Make sure VisionService is expecting bytes, not a string
-        detected_ingredients = vision.detect_ingredients(image_bytes)
+        # 1. Local YOLO Detection
+        detected_labels = vision.detect_ingredients(image_bytes)
         
-        # 3. Pass the LIST (strings) to Nutrition
-        # Ensure 'user_goal' is a string
-        if not isinstance(user_goal, str):
-             user_goal = str(user_goal)
-
-        nutrition_plan = nutrition.get_smart_recipe(detected_ingredients, user_goal)
+        # 2. Hybrid AI Audit (The Ingredient First -> Recipe Later Logic)
+        final_analysis = nutrition.analyze_and_verify(
+            yolo_ingredients=detected_labels,
+            master_vocab=list(vision.class_names.values()),
+            image_bytes=image_bytes,
+            user_goal=user_goal
+        )
         
-        return {"success": True, "data": nutrition_plan}
+        return {
+            "success": True,
+            "yolo_detection": detected_labels,
+            "verification_data": final_analysis
+        }
 
     except Exception as e:
-        # This will print the error to your terminal so you can see the line number
         import traceback
-        traceback.print_exc() 
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
