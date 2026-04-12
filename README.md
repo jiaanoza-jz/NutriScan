@@ -1,6 +1,6 @@
 # 🥗 NutriScan v3: AI-Powered Nutritional Intelligence
 
-**NutriScan** is a high-precision, multi-stage AI platform designed to bridge the gap between computer vision and dietary health. It utilizes a custom-trained **YOLO26n** model to identify 115+ food ingredients and integrates with **Google Gemini 2.0 Flash** to provide real-time, sugar-free recipe generation and nutritional gap analysis.
+**NutriScan** is a high-precision, multi-stage AI platform designed to bridge the gap between computer vision and dietary health. It utilizes a custom-trained **YOLO26n** model to identify 115+ food ingredients and integrates with **Google Gemini 2.0 Flash** to provide real-time, recipe generation and nutritional gap analysis.
 
 ---
 
