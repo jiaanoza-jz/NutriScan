@@ -6,7 +6,4 @@ venv/
 .env
 
 data.yaml
-*.jpg
-*.png
-*.mp4
-research/
+
