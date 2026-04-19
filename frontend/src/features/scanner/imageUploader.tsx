@@ -18,18 +18,14 @@ export const ImageUploader: React.FC<Props> = ({ preview, onImageSelect }) => {
   return (
     <div className="w-full">
       {preview ? (
-        /* Image Preview State */
         <div className="relative rounded-[2rem] overflow-hidden aspect-square shadow-2xl border-[6px] border-white group">
-          <img 
-            src={preview} 
-            alt="Scan Preview" 
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+          <img
+            src={preview}
+            alt="Scan Preview"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          
-          {/* Overlay gradient for the delete button visibility */}
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
-          
-          <button 
+          <button
             onClick={() => onImageSelect(null)}
             className="absolute top-4 right-4 p-3 bg-white/90 text-gray-900 rounded-full hover:bg-white transition-all shadow-xl backdrop-blur-md active:scale-90"
           >
@@ -37,32 +33,30 @@ export const ImageUploader: React.FC<Props> = ({ preview, onImageSelect }) => {
           </button>
         </div>
       ) : (
-        /* Empty Upload State */
-        <div 
+        <div
           onClick={() => fileInputRef.current?.click()}
           className="relative border-2 border-dashed border-gray-200 rounded-[2rem] aspect-square flex flex-col items-center justify-center gap-6 bg-white hover:bg-nutri-light/30 hover:border-nutri-green transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md"
         >
-          <div className="border-1 border-black">
-            <div className="p-2 bg-white rounded-xl shadow-sm border-red border-1 text-gray-400">
+          <div className="p-4 bg-nutri-light rounded-2xl">
+            <div className="p-2 bg-white rounded-xl shadow-sm border border-nutri-green/20 text-nutri-green">
               <ImageIcon size={20} />
             </div>
           </div>
-          
+
           <div className="text-center space-y-1 px-4">
             <p className="font-bold text-xl text-gray-800">Scan Ingredient</p>
             <p className="text-sm text-gray-400 font-medium">
-              Tap upload photo
+              Tap to upload photo
             </p>
           </div>
 
-          {/* This input MUST stay hidden */}
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            style={{ display: 'none' }} // Inline style to ensure it stays hidden regardless of Tailwind loading
-            accept="image/*" 
-            capture="environment" 
-            onChange={handleFileChange} 
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            accept="image/*"
+            capture="environment"
+            onChange={handleFileChange}
           />
         </div>
       )}

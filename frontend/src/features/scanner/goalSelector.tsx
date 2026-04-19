@@ -23,10 +23,10 @@ export const GoalSelector: React.FC<Props> = ({ selected, onSelect }) => {
         {GOALS.map((goal) => (
           <button
             key={goal.id}
-            onClick={() => onSelect(goal.label)}
+            onClick={() => onSelect(goal.id)}
             className={`px-4 py-2 rounded-full border-2 transition-all duration-200 flex items-center gap-2
-              ${selected === goal.label 
-                ? 'border-nutri-green bg-nutri-light text-nutri-dark font-medium shadow-sm' 
+              ${selected === goal.id
+                ? 'border-nutri-green bg-nutri-light text-nutri-dark font-medium shadow-sm'
                 : 'border-gray-100 bg-white text-gray-600 hover:border-gray-200'}`}
           >
             <span>{goal.icon}</span>

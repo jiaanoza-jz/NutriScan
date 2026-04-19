@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Scanner } from './features/scanner/scanner';
-import { Dashboard } from './features/analysis/dashboard'; // The new Dashboard
+import { Dashboard } from './features/analysis/dashboard';
 import type { ScanResponse } from './types';
 import { ArrowLeft, ChefHat } from 'lucide-react';
 
@@ -28,7 +28,7 @@ function App() {
             <div className="w-8 h-8 bg-nutri-green rounded-lg flex items-center justify-center text-white">
               <ChefHat size={20} height="fill" />
             </div>
-            <span className="font-bold text-xl tracking-tight">NutriScan <span className="text-nutri-green">v3</span></span>
+            <span className="font-bold text-xl tracking-tight">NutriScan</span>
           </div>
           
           <AnimatePresence>
@@ -77,10 +77,6 @@ function App() {
 
       {/* Clean, minimalist footer */}
       <footer className="py-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full border border-gray-100 text-gray-400 text-xs font-medium shadow-sm">
-          <span className="w-2 h-2 bg-nutri-green rounded-full animate-pulse" />
-          System Online • YOLO26n + Gemini 2.5 Flash
-        </div>
         <p className="mt-4 text-[10px] text-gray-300 uppercase tracking-[0.2em]">
           © 2026 NutriScan Intelligent Systems
         </p>

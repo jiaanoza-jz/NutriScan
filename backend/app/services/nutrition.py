@@ -53,7 +53,8 @@ class NutritionService:
             "recipe_ready": {{
                 "dish_name": "string",
                 "instructions": ["step 1", "step 2"],
-                "goal_analysis": "How this dish helps with the user's specific goal"
+                "goal_analysis": "How this dish helps with the user's specific goal",
+                "user_goal": "user goal from input"
             }}
         }}
         """

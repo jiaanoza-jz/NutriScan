@@ -14,6 +14,7 @@ export interface Recipe {
   dish_name: string;
   instructions: string[];
   goal_analysis: string;
+  user_goal: string;
 }
 
 export interface ScanResponse {
@@ -23,6 +24,6 @@ export interface ScanResponse {
     ingredients_list: Ingredient[];
     total_calories: number;
     recipe_ready: Recipe;
-    macros?: MacroData; // We'll handle this for the chart
+    user_goal: string;
   };
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import type { ScanResponse } from '../../types/index';
 import { NutritionHero } from './nutritionHero';
-import { MacroChart } from './macroChart';
 import { IngredientList } from './ingredientList';
 // import { RecipeCard } from '../recipe/RecipeCard';
 
@@ -12,23 +11,15 @@ interface Props {
 export const Dashboard: React.FC<Props> = ({ data }) => {
   const { verification_data } = data;
 
-  // Placeholder macros if backend doesn't send them yet
-  const macroData = [
-    { name: 'Protein', value: 24, color: '#22C55E' },
-    { name: 'Carbs', value: 45, color: '#3B82F6' },
-    { name: 'Fats', value: 12, color: '#F59E0B' },
-  ];
-
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <NutritionHero 
         calories={verification_data.total_calories}
-        goal="High Protein" // This would come from state
+        goal={verification_data.recipe_ready.user_goal}
         goalAnalysis={verification_data.recipe_ready.goal_analysis}
       />
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <MacroChart data={macroData} />
         <IngredientList ingredients={verification_data.ingredients_list} />
       </div>
 

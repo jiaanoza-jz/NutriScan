@@ -5,12 +5,12 @@ export default {
     extend: {
       colors: {
         nutri: {
-          green: '#22C55E',
-          dark: '#14532D',
-          light: '#F0FDF4',
-          accent: '#10B981'
+          green: 'hsl(142, 71%, 45%)',   // #22C55E equivalent
+          dark:  'hsl(143, 64%, 24%)',   // #14532D equivalent
+          light: 'hsl(138, 76%, 97%)',   // #F0FDF4 equivalent
+          accent:'hsl(160, 84%, 39%)',
         },
-        surface: '#F9FAFB',
+        surface: 'hsl(210, 20%, 98%)',
       },
       borderRadius: {
         'xl': '1rem',

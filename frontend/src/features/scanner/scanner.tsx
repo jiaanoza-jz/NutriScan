@@ -12,7 +12,7 @@ interface ScannerProps {
 export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [goal, setGoal] = useState('Balanced'); // Default to Balanced
+  const [goal, setGoal] = useState('balanced');
   const [isScanning, setIsScanning] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
   const handleScan = async () => {
     if (!image) return;
     setIsScanning(true);
-    
+
     try {
       const result = await scanImage(image, goal);
       onScanComplete(result);
@@ -41,7 +41,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-xl mx-auto px-4 py-12 md:py-20 space-y-12"
@@ -49,10 +49,10 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
       {/* Header Section */}
       <header className="text-center space-y-3">
         <h1 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
-          NutriScan <span className="text-nutri-green">v3</span>
+          NutriScan
         </h1>
         <p className="text-gray-500 font-medium text-lg">
-          AI-Powered Nutritional Intelligence
+          Nutritional Intelligence
         </p>
       </header>
 
@@ -66,20 +66,20 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
       <button
         disabled={!image || isScanning}
         onClick={handleScan}
-        className={`w-full py-5 rounded-2xl font-bold text-lg text-white flex items-center justify-center gap-3 transition-all duration-300 shadow-xl
-          ${!image || isScanning 
-            ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none' 
-            : 'bg-nutri-green hover:bg-nutri-dark active:scale-[0.98] shadow-nutri-green/20'}`}
+        className={`w-full py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition-all duration-300
+          ${!image || isScanning
+            ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
+            : 'bg-nutri-green text-white hover:bg-nutri-dark active:scale-[0.98] shadow-xl shadow-nutri-green/20'}`}
       >
         {isScanning ? (
           <>
             <Loader2 size={22} className="animate-spin" />
-            <span>Analyzing with YOLO...</span>
+            <span>Analyzing...</span>
           </>
         ) : (
           <>
-            <Sparkles size={22} />
-            <span>Start AI Analysis</span>
+            <Sparkles size={18} />
+            <span>Start Analysis</span>
           </>
         )}
       </button>
