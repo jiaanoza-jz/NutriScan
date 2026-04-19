@@ -1,6 +1,7 @@
 import os
 import json
 import io
+import time
 import PIL.Image
 from dotenv import load_dotenv
 from google import genai
@@ -8,7 +9,7 @@ from google.genai import types
 
 load_dotenv()
 
-class NutritionService:
+class NutritionService: 
     def __init__(self):
         self.client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
         self.model_id = "gemini-2.5-flash" 
@@ -52,17 +53,26 @@ class NutritionService:
             "recipe_ready": {{
                 "dish_name": "string",
                 "instructions": ["step 1", "step 2"],
-                "goal_analysis": "How this dish helps with the user's specific goal"
+                "goal_analysis": "How this dish helps with the user's specific goal",
+                "user_goal": "user goal from input"
             }}
         }}
         """
+        max_retries = 3
+        base_delay = 2
 
-        try:
-            response = self.client.models.generate_content(
-                model=self.model_id,
-                contents=[prompt, img],
-                config=types.GenerateContentConfig(response_mime_type="application/json")
-            )
-            return json.loads(response.text)
-        except Exception as e:
-            return {"error": str(e)}
+        for attempt in range(max_retries):
+            try:
+                response = self.client.models.generate_content(
+                    model=self.model_id,
+                    contents=[prompt, img],
+                    config=types.GenerateContentConfig(response_mime_type="application/json")
+                )
+                return json.loads(response.text)
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    wait_time = base_delay * (2 ** attempt)
+                    print(f"Attempt {attempt + 1} failed. Retrying in {wait_time}s...")
+                    time.sleep(wait_time)
+                else: 
+                    return {"error": str(e)}
