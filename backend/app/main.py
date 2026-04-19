@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from app.services.vision import VisionService
-from app.services.nutrition import NutritionService
+from services.vision import VisionService
+from services.nutrition import NutritionService
 
 app = FastAPI(title="NutriScan AI", version="3.0")
 
@@ -52,4 +52,4 @@ async def scan_and_analyze(
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
